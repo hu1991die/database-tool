@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<modules>
+	<!--  type类型为table，表示按照指定的table表名导出，比如执行user_info,user_config  -->
+	<!-- <module name="考试模块" type="table" table="exam_info,user_info"/> -->
+	
+	<!-- type类型为prefix，表示按照指定的table类型导出，比如eaxm前缀，则表示导出考试模块  -->
+	<module name="爱问模块" type="prefix" table="ask"/>
+	
+	<!--  type类型为all,表示导出所有的table表  -->
+	<!-- <module name="所有模块" type="all"/> -->
+</modules>

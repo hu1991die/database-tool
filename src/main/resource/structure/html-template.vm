@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+	<title>数据字典</title>
+    <style>
+		h2{
+			margin-top:30px;
+			margin-bottom:5px;
+			font-size:16px;
+			font-weight:700;
+		}
+		h3{
+			margin-top:5px;
+			margin-bottom:0;
+			padding:7px 0 7px 5px;
+			color:#333;
+			font-size:14px;
+			font-weight:700;
+			line-height:20px;
+			text-align:left;
+			word-wrap:break-word;
+			background-color:#eff2f5;
+		}
+		p{
+			margin-top:30px;
+			font-size:12px;
+			color:#555;
+		}
+		hr.line{
+			margin-top:30px;
+			size:1;
+			color:#eff2f5;
+		}
+		.back{
+			margin-top:10px;
+			text-align:center;
+			font-size:12px;
+		}
+		/* 常用表格 */
+		.common-table{
+			width:100%;
+			clear: both;
+			border:1px solid #e6e9ee;
+			color:#222;
+			font-size:12px;
+		}
+		.head-1 th{
+			padding:7px 0 7px 5px;
+			color:#333;
+			line-height:20px;
+			text-align:left;
+			word-wrap:break-word;
+			background-color:#eff2f5;
+		}
+		.head-2 th{
+			padding:7px 0 7px 5px;
+			color:#333;
+			line-height:20px;
+			text-align:left;
+			word-wrap:break-word;
+		}
+		.common-table td{
+			padding:7px 0 7px 5px;
+			line-height:18px;
+			word-wrap:break-word;
+			text-align:left;
+			word-wrap:break-word;
+			word-break:break-all;
+		}
+		.bgcolor td{
+			background-color:#fafbfc;
+		}
+		td.item{
+			padding-right:5px;
+			color:#999;
+			text-align:right;
+			vertical-align:top;
+		}
+		.table-border td,
+		.table-border th{
+			border-right:1px solid #e6e9ee;
+			border-bottom:1px solid #e6e9ee;
+		}
+		tr:hover td{
+			background-color:#f5f7f9;
+		}
+    
+    </style>
+</head>
+
+<body>
+    <h2>模块列表</h2>
+    <table cellspacing="0" cellpadding="0" class="common-table table-border">          
+        <tbody>          
+           <tr>
+             <td><a href="#${module.name}">${module.name}</a></td>
+          </tr>
+      </tbody>
+    </table>
+	
+    <a id="headLOCAL_6-${module.name}" name="headLOCAL_6-${module.name}"></a>
+    <h2>模块-${module.name}清单:</h2>
+    <table cellspacing="0" cellpadding="0" class="common-table table-border">
+        <thead>
+           <tr class="head-1">
+            <th>表名</th>
+            <th>解释</th>
+          </tr>
+        </thead>
+          
+        <tbody>
+        	#foreach ($tableInfo in $tableList)
+        		#if ($velocityCount % 2 == 0)
+        			<tr class = "bgcolor">
+        		#else
+       				<tr>
+       			#end
+		             	<td><a href="#LOCAL_6-${tableInfo.name}">${tableInfo.name}</a></td>
+		             	<td>${tableInfo.name}（${tableInfo.comment}）</td>
+       				</tr>
+        	#end
+      </tbody>
+    </table>
+    
+    <hr class="line">
+	
+    #foreach ($tableInfo in $tableList)
+		<a id="LOCAL_6-${tableInfo.name}" name="LOCAL_6-${tableInfo.name}"></a>
+		<p><h5>表名:${tableInfo.name} |解释:${tableInfo.name}（${tableInfo.comment}）</h5></p>
+    	<h3>${tableInfo.name}（${tableInfo.comment}）</h3>
+    	
+	    <table cellspacing="0" cellpadding="0" class="common-table table-border">
+	        <thead>
+	           <tr class="head-2">
+	            <th>字段名称</th>
+	            <th>数据类型</th>
+	            <th>字段描述</th>
+	            <th>是否主键</th>
+	            <th>长度</th>
+	            <th>可空</th>
+	          </tr>
+	        </thead>
+	        <tbody>
+	        	#foreach ($columnInfo in ${tableInfo.columnList})
+	        		#if ($velocityCount % 2 == 1)
+	        			<tr class = "bgcolor">
+	        		#else
+           				<tr>
+           			#end
+							<td>${columnInfo.column_name}</td>
+							<td>${columnInfo.data_type}</td>
+							<td>${columnInfo.column_comment}</td>
+							<td>${columnInfo.column_key}</td>
+							<td>${columnInfo.column_type}</td>
+							<td>${columnInfo.is_nullable}</td>
+	      				</tr>
+      			#end
+	       </tbody>
+	    </table>
+    #end
+    <div class="back"><a href="#headLOCAL_6-${module.name}">[返回]</a></div>
+</body>
+</html>
